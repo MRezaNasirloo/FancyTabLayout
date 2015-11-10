@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:ellipsize="end"
+    android:textSize="24sp"
     android:gravity="center"
     android:maxLines="2"
     />
