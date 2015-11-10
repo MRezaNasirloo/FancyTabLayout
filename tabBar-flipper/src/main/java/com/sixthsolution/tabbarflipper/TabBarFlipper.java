@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
@@ -28,6 +29,7 @@ public class TabBarFlipper extends HorizontalScrollView {
 
     private final ArrayList<Tab> mTabs = new ArrayList<>();
     private LinearLayout mTabStrip;
+    private Tab mSectedTab;
 
     public TabBarFlipper(Context context) {
         super(context);
@@ -166,8 +168,10 @@ public class TabBarFlipper extends HorizontalScrollView {
         if (position < tabCount) {
             for (int i = 0; i < tabCount; i++) {
                 final TabView child = getTabViewAt(i);
-                if (i == position)
+                if (i == position){
                     child.select();
+                    mSectedTab = mTabs.get(position);
+                }
                 else child.unSelect();
             }
         }
@@ -184,6 +188,15 @@ public class TabBarFlipper extends HorizontalScrollView {
             mTabStrip.setMinimumWidth(mTabStrip.getMeasuredWidth());
             ViewCompat.setPaddingRelative(this, start, getPaddingTop(), end, getPaddingBottom());
             setClipToPadding(false);
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        // Ensure first scroll
+        if (changed && mSectedTab != null) {
+            scrollToTab(mSectedTab.getPosition(), 0);
         }
     }
 
