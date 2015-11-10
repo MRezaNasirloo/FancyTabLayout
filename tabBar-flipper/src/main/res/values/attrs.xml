@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabBarFlipper">
+        <attr name="tabFlipperIndicatorColor" format="color" />
+        <!--<attr name="tabFlipperIndicatorHeight" format="dimension" />-->
+        <!--<attr name="tabFlipperContentStart" format="dimension" />-->
+        <attr name="tabFlipperBackground" format="reference" />
+        <attr name="tabFlipperMode">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+        <attr name="tabFlipperGravity">
+            <enum name="fill" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="tabFlipperMinWidth" format="dimension" />
+        <attr name="tabFlipperMaxWidth" format="dimension" />
+        <attr name="tabFlipperTextAppearance" format="reference" />
+        <attr name="tabFlipperTextColor" format="color" />
+        <attr name="tabFlipperSelectedTextColor" format="color" />
+        <!--<attr name="tabFlipperPaddingStart" format="dimension" />-->
+        <!--<attr name="tabFlipperPaddingTop" format="dimension" />-->
+        <!--<attr name="tabFlipperPaddingEnd" format="dimension" />-->
+        <!--<attr name="tabFlipperPaddingBottom" format="dimension" />-->
+        <!--<attr name="tabFlipperPadding" format="dimension" />-->
+    </declare-styleable>
+
+</resources>
