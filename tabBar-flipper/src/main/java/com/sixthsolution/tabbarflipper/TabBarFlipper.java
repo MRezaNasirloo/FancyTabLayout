@@ -5,10 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -159,6 +161,63 @@ public class TabBarFlipper extends HorizontalScrollView {
         return Math.round(getResources().getDisplayMetrics().density * dps);
     }
 
+    private void setSelectedTabView(int position) {
+        final int tabCount = mTabStrip.getChildCount();
+        if (position < tabCount) {
+            for (int i = 0; i < tabCount; i++) {
+                final TabView child = getTabViewAt(i);
+                if (i == position)
+                    child.select();
+                else child.unSelect();
+            }
+        }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (getChildCount() > 0) {
+            View firstTab = mTabStrip.getChildAt(0);
+            View lastTab = mTabStrip.getChildAt(getChildCount() - 1);
+            int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
+            int end = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
+            mTabStrip.setMinimumWidth(mTabStrip.getMeasuredWidth());
+            ViewCompat.setPaddingRelative(this, start, getPaddingTop(), end, getPaddingBottom());
+            setClipToPadding(false);
+        }
+    }
+
+    private void scrollToTab(int tabIndex, int positionOffset) {
+        final int tabStripChildCount = mTabStrip.getChildCount();
+        if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
+            return;
+        }
+
+        View selectedTab = mTabStrip.getChildAt(tabIndex);
+        if (selectedTab == null) {
+            return;
+        }
+
+        final boolean isLayoutRtl = Utils.isLayoutRtl(this);
+
+        View firstTab = mTabStrip.getChildAt(0);
+        int x;
+        if (isLayoutRtl) {
+            int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
+            int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
+            x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
+            x -= (first - selected) / 2;
+        } else {
+            int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
+            int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
+            x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
+            x -= (first - selected) / 2;
+        }
+
+        scrollTo(x, 0);
+
+    }
+
     /**
      * class for holding tab data and adding a new TabView to the container LinearLayout
      */
@@ -274,8 +333,9 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         public void animateIn(float positionOffset) {
 
-            mTextView.setScaleX(Math.abs(positionOffset - 1f));
-            mTextView.setScaleY(Math.abs(positionOffset - 1f));
+            float shrinkFactor = positionOffset / 2;
+            mTextView.setScaleX(Math.abs(shrinkFactor - 1f));
+            mTextView.setScaleY(Math.abs(shrinkFactor - 1f));
             mTextView.setAlpha(Math.abs(positionOffset - 1f));
             mTextView.setRotationY((180f * positionOffset / 1.0f));
 
@@ -288,8 +348,9 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         public void animateOut(float positionOffset) {
 
-            mIconView.setScaleX(Math.abs(positionOffset - 1f));
-            mIconView.setScaleY(Math.abs(positionOffset - 1f));
+            float shrinkFactor = positionOffset / 2;
+            mIconView.setScaleX(Math.abs(shrinkFactor - 1f));
+            mIconView.setScaleY(Math.abs(shrinkFactor - 1f));
             mIconView.setAlpha(Math.abs(positionOffset - 1f));
             mIconView.setRotationY((180f * positionOffset / 1.0f));
 
@@ -333,10 +394,20 @@ public class TabBarFlipper extends HorizontalScrollView {
             selectedTab.animateIn(positionOffset);
             selectingTab.animateOut(positionOffset);
 
+            if (0f < positionOffset && positionOffset < 1f) {
+                int current = Utils.getWidth(selectedTab) / 2 + Utils.getMarginEnd(selectedTab);
+                int next = Utils.getWidth(selectingTab) / 2 + Utils.getMarginStart(selectingTab);
+                int extraOffset = Math.round(positionOffset * (current + next));
+                tabBarFlipper.scrollToTab(position, extraOffset);
+            }
+
+
         }
 
         @Override
         public void onPageSelected(int position) {
+            mTabBarFlipperRef.get().setSelectedTabView(position);
+
 
         }
 
