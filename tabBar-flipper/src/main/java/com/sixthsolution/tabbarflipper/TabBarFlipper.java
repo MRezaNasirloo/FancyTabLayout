@@ -10,6 +10,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,9 +28,11 @@ import java.util.ArrayList;
  */
 public class TabBarFlipper extends HorizontalScrollView {
 
+
     private final ArrayList<Tab> mTabs = new ArrayList<>();
-    private LinearLayout mTabStrip;
-    private Tab mSectedTab;
+    private TabStrip mTabStrip;
+    private Tab mSelectedTab;
+    private int mTitleOffset = 24;
 
     public TabBarFlipper(Context context) {
         super(context);
@@ -38,10 +41,14 @@ public class TabBarFlipper extends HorizontalScrollView {
     public TabBarFlipper(Context context, AttributeSet attrs) {
         super(context, attrs);
         setHorizontalScrollBarEnabled(false);
+        float density = getResources().getDisplayMetrics().density;
 
         // Add the TabStrip
-        mTabStrip = new LinearLayout(context);
+        mTabStrip = new TabStrip(context, attrs);
         addView(mTabStrip, LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+
+        setFillViewport(false);
+
 
     }
 
@@ -89,9 +96,6 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         addTabView(tab, setSelected);
         configureTab(tab, mTabs.size());
-        /*if (setSelected) {
-            tab.select();
-        }*/
     }
 
     /**
@@ -108,9 +112,6 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         addTabView(tab, position, setSelected);
         configureTab(tab, position);
-        /*if (setSelected) {
-            tab.select();
-        }*/
     }
 
     private void configureTab(Tab tab, int position) {
@@ -133,7 +134,6 @@ public class TabBarFlipper extends HorizontalScrollView {
         mTabStrip.addView(tabView, createLayoutParamsForTabs());
         if (setSelected) {
             tabView.select();
-            setSelected(true);
         }
     }
 
@@ -142,7 +142,6 @@ public class TabBarFlipper extends HorizontalScrollView {
         mTabStrip.addView(tabView, position, createLayoutParamsForTabs());
         if (setSelected) {
             tabView.select();
-            setSelected(true);
         }
     }
 
@@ -168,11 +167,10 @@ public class TabBarFlipper extends HorizontalScrollView {
         if (position < tabCount) {
             for (int i = 0; i < tabCount; i++) {
                 final TabView child = getTabViewAt(i);
-                if (i == position){
+                if (i == position) {
                     child.select();
-                    mSectedTab = mTabs.get(position);
-                }
-                else child.unSelect();
+                    mSelectedTab = mTabs.get(position);
+                } else child.unSelect();
             }
         }
     }
@@ -195,8 +193,8 @@ public class TabBarFlipper extends HorizontalScrollView {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         // Ensure first scroll
-        if (changed && mSectedTab != null) {
-            scrollToTab(mSectedTab.getPosition(), 0);
+        if (changed && mSelectedTab != null) {
+            scrollToTab(mSelectedTab.getPosition(), 0);
         }
     }
 
@@ -213,18 +211,39 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         final boolean isLayoutRtl = Utils.isLayoutRtl(this);
 
-        View firstTab = mTabStrip.getChildAt(0);
-        int x;
-        if (isLayoutRtl) {
-            int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
-            int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
-            x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
-            x -= (first - selected) / 2;
-        } else {
-            int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
-            int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
-            x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
-            x -= (first - selected) / 2;
+        if (true) {
+            View firstTab = mTabStrip.getChildAt(0);
+            int x;
+            if (isLayoutRtl) {
+                int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
+                int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
+                x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
+                x -= (first - selected) / 2;
+            } else {
+                int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
+                int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
+                x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
+                x -= (first - selected) / 2;
+            }
+
+            scrollTo(x, 0);
+            return;
+
+        }
+
+        int start = Utils.getStart(selectedTab);
+        int startMargin = Utils.getMarginStart(selectedTab);
+        int x = isLayoutRtl
+                ? start + startMargin - positionOffset - getWidth() + Utils.getPaddingHorizontally(this)
+                : start - startMargin + positionOffset;
+
+        if (tabIndex > 0 || positionOffset > 0) {
+            // If we're not at the first child and are mid-scroll, make sure we obey the offset
+            if (isLayoutRtl) {
+                x += mTitleOffset;
+            } else {
+                x -= mTitleOffset;
+            }
         }
 
         scrollTo(x, 0);
@@ -401,6 +420,7 @@ public class TabBarFlipper extends HorizontalScrollView {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             TabBarFlipper tabBarFlipper = mTabBarFlipperRef.get();
+            tabBarFlipper.mTabStrip.onViewPagerPageChanged(position, positionOffset);
             TabView selectedTab = tabBarFlipper.getTabViewAt(position);
             TabView selectingTab = tabBarFlipper.getTabViewAt(position + 1);
             if (selectingTab == null) return;
@@ -420,6 +440,7 @@ public class TabBarFlipper extends HorizontalScrollView {
         @Override
         public void onPageSelected(int position) {
             mTabBarFlipperRef.get().setSelectedTabView(position);
+//            mTabBarFlipperRef.get().mTabStrip.onViewPagerPageChanged(position, 0f);
 
 
         }
