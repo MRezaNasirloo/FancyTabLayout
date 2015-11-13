@@ -34,11 +34,10 @@ public class TabBarFlipper extends HorizontalScrollView {
 
     private static final int DEFAULT_PADDING = 7;//dp
     private static final int DEFAULT_MIN_WIDTH = 48;//dp
-    private static final int DEFAULT_MAX_WIDTH = 100;
     private int INVALID_TEXT_SIZE = -1;
+
     private final ArrayList<Tab> mTabs = new ArrayList<>();
     private int mTabMinWidth;
-    private int mTabMaxWidth;
     private int mTabTextColor;
     private int mTabTextSize = INVALID_TEXT_SIZE;
     private int mTabTextAppearance;
@@ -462,8 +461,9 @@ public class TabBarFlipper extends HorizontalScrollView {
             if (position > tabCount) {
                 tabBarFlipper.mTabStrip.onViewPagerPageChanged(tabCount, 0f);
                 tabBarFlipper.setSelectedTabView(tabCount);
-
+                return;
             }
+            tabBarFlipper.setSelectedTabView(position);
         }
 
         @Override
