@@ -21,8 +21,13 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("ONE").setIcon(R.drawable.ic_room_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("TWO").setIcon(R.drawable.ic_backup_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
+        /*tabBarFlipper.addTab(tabBarFlipper.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("FOUR").setIcon(R.drawable.ic_shopping_cart_24dp));
+
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));*/
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp);

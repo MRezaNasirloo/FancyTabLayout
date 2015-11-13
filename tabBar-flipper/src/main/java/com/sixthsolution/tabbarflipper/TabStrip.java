@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -18,6 +18,7 @@ class TabStrip extends LinearLayout {
 
     private static final int DEFAULT_INDICATOR_SIZE = 12;//dp
     private static final int DEFAULT_HEIGHT = 48;//dp
+    Rect mRect = new Rect();
     private Paint mPaintIndicator;
     private Drawable mDrawableIndicator;
     private int mSelectedPosition;
@@ -69,23 +70,26 @@ class TabStrip extends LinearLayout {
     protected void onDraw(Canvas canvas) {
         final int height = getHeight();
 //        final int width = getWidth();
-        View selectedTab = getChildAt(mSelectedPosition);
-        View nextTab = getChildAt(mSelectedPosition + 1);
+//        if (mSelectedPosition < getChildCount() - 1) {
 
-        int selectedTabLeft = Utils.getStart(selectedTab);
-        int selectedTabRight = Utils.getEnd(selectedTab);
-        int selectedCenter = (selectedTabLeft + selectedTabRight) / 2;
-        int nextTabRight = Utils.getEnd(nextTab);
-        int nextTabCenter = (selectedTabRight + nextTabRight) / 2;
+            View selectedTab = getChildAt(mSelectedPosition);
+            View nextTab = getChildAt(mSelectedPosition + 1);
 
-        int distance = nextTabCenter - selectedCenter;
+            int selectedTabLeft = Utils.getStart(selectedTab);
+            int selectedTabRight = Utils.getEnd(selectedTab);
+            int selectedCenter = (selectedTabLeft + selectedTabRight) / 2;
+            int nextTabRight = Utils.getEnd(nextTab);
+            int nextTabCenter = (selectedTabRight + nextTabRight) / 2;
 
-        mDrawableIndicator.setBounds(
-                selectedCenter + ((int) (mSelectionOffset * distance)) - (mDrawableMinimumWidth / 2),
-                height - mDrawablwMinimumHeight,
-                selectedCenter + ((int) (mSelectionOffset * distance)) + (mDrawableMinimumWidth / 2),
-                height);
+            int distance = nextTabCenter - selectedCenter;
 
+            mRect.set(selectedCenter + ((int) (mSelectionOffset * distance)) - (mDrawableMinimumWidth / 2),
+                    height - mDrawablwMinimumHeight,
+                    selectedCenter + ((int) (mSelectionOffset * distance)) + (mDrawableMinimumWidth / 2),
+                    height);
+//        }
+
+        mDrawableIndicator.setBounds(mRect);
         mDrawableIndicator.draw(canvas);
 
         /*int x = paddingLeft + (contentWidth) / 2;
