@@ -30,7 +30,7 @@ class TabStrip extends LinearLayout {
     private int mDiffHeight;
 
     public TabStrip(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context);
         setWillNotDraw(false);
         float density = getResources().getDisplayMetrics().density;
 
