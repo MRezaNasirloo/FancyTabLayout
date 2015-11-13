@@ -12,6 +12,8 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -82,7 +84,7 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         mTabMinWidth = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_MinWidth, ((int) (DEFAULT_MIN_WIDTH * density)));
 
-        mTabTextSize = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_TextSize, INVALID_TEXT_SIZE);
+        mTabTextSize = (int) a.getDimension(R.styleable.TabBarFlipper_tab_TextSize, INVALID_TEXT_SIZE);
 
         mTabTextColor = a.getColor(R.styleable.TabBarFlipper_tab_TextColor, Color.WHITE);
 
@@ -372,7 +374,7 @@ public class TabBarFlipper extends HorizontalScrollView {
             }
 
             mTextView.setText(tab.getText());
-            mTextView.setTextSize(mTabTextSize);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabTextSize);
             mTextView.setTextColor(mTabTextColor);
             mIconView.setImageDrawable(tab.getIcon());
             unSelect();

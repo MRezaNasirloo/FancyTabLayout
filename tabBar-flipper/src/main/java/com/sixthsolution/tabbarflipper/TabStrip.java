@@ -20,7 +20,6 @@ class TabStrip extends LinearLayout {
     private int mSelectedPosition;
     private float mSelectionOffset;
     private int mLastPosition;
-    private int mIndicatorMaxWidth;
     private int mDrawableMinimumWidth;
     private int mDrawableMinimumHeight;
 

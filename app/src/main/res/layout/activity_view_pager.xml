@@ -16,8 +16,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tab_TextSize="10sp"
-            app:tab_MinWidth="80dp"
+            app:tab_TextSize="24sp"
             />
 
     </android.support.design.widget.AppBarLayout>
