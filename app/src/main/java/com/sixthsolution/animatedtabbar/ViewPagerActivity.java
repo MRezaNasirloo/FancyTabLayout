@@ -1,12 +1,12 @@
 package com.sixthsolution.animatedtabbar;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.sixthsolution.tabbarflipper.TabBarFlipper;
 
@@ -21,13 +21,18 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("ONE").setIcon(R.drawable.ic_room_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("TWO").setIcon(R.drawable.ic_backup_24dp));
-        /*tabBarFlipper.addTab(tabBarFlipper.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("FOUR").setIcon(R.drawable.ic_shopping_cart_24dp));
 
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
         tabBarFlipper.addTab(tabBarFlipper.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));*/
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));
+
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
+        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
@@ -40,7 +45,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 4;
+        private static int NUM_ITEMS = 12;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);

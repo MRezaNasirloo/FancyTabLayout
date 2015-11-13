@@ -2,6 +2,7 @@ package com.sixthsolution.tabbarflipper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
@@ -11,7 +12,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -31,11 +31,14 @@ public class TabBarFlipper extends HorizontalScrollView {
 
 
     private static final int DEFAULT_PADDING = 7;//dp
-    private static final int DEFAULT_MIN_WIDTH = 16;//dp
+    private static final int DEFAULT_MIN_WIDTH = 48;//dp
+    private static final int DEFAULT_MAX_WIDTH = 100;
+    private int INVALID_TEXT_SIZE = -1;
     private final ArrayList<Tab> mTabs = new ArrayList<>();
     private int mTabMinWidth;
+    private int mTabMaxWidth;
     private int mTabTextColor;
-    private int mTabTextSize;
+    private int mTabTextSize = INVALID_TEXT_SIZE;
     private int mTabTextAppearance;
     private int mTabPaddingStart;
     private int mTabPaddingTop;
@@ -67,11 +70,8 @@ public class TabBarFlipper extends HorizontalScrollView {
         float density = getResources().getDisplayMetrics().density;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabBarFlipper,
-                defStyleAttr, 0  /*R.style.Widget_Design_TabLayout*/);
+                defStyleAttr, 0);
 
-//        mTabStrip.setSelectedIndicatorHeight(
-//                a.getDimensionPixelSize(R.styleable.TabBarFlipper_tabFlipperIndicatorSize, 0));
-//        mTabStrip.setSelectedIndicatorColor(a.getColor(R.styleable.TabBarFlipper_tabFlipperTextColor, 0));
 
         mTabPaddingStart = mTabPaddingTop = mTabPaddingEnd = mTabPaddingBottom =
                 a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_Padding, ((int) (DEFAULT_PADDING * density)));
@@ -81,6 +81,10 @@ public class TabBarFlipper extends HorizontalScrollView {
         mTabPaddingBottom = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_PaddingBottom, mTabPaddingBottom);
 
         mTabMinWidth = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_MinWidth, ((int) (DEFAULT_MIN_WIDTH * density)));
+
+        mTabTextSize = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_TextSize, INVALID_TEXT_SIZE);
+
+        mTabTextColor = a.getColor(R.styleable.TabBarFlipper_tab_TextColor, Color.WHITE);
 
         mTabTextAppearance = a.getResourceId(R.styleable.TabBarFlipper_tab_TextAppearance, R.style.TextAppearance_Tab);
 
@@ -214,7 +218,7 @@ public class TabBarFlipper extends HorizontalScrollView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (getChildCount() > 0 && false) {
+        if (getChildCount() > 0) {
             View firstTab = mTabStrip.getChildAt(0);
             View lastTab = mTabStrip.getChildAt(getChildCount() - 1);
             int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
@@ -247,21 +251,21 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         final boolean isLayoutRtl = Utils.isLayoutRtl(this);
 
-            View firstTab = mTabStrip.getChildAt(0);
-            int x;
-            if (isLayoutRtl) {
-                int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
-                int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
-                x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
-                x -= (first - selected) / 2;
-            } else {
-                int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
-                int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
-                x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
-                x -= (first - selected) / 2;
-            }
+        View firstTab = mTabStrip.getChildAt(0);
+        int x;
+        if (isLayoutRtl) {
+            int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
+            int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
+            x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
+            x -= (first - selected) / 2;
+        } else {
+            int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
+            int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
+            x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
+            x -= (first - selected) / 2;
+        }
 
-            scrollTo(x, 0);
+        scrollTo(x, 0);
 
     }
 
@@ -346,6 +350,7 @@ public class TabBarFlipper extends HorizontalScrollView {
             super(context);
 
             ViewCompat.setPaddingRelative(this, mTabPaddingStart, mTabPaddingTop, mTabPaddingEnd, mTabPaddingBottom);
+            setMinimumWidth(mTabMinWidth);
 
 
             if (mIconView == null) {
@@ -367,13 +372,10 @@ public class TabBarFlipper extends HorizontalScrollView {
             }
 
             mTextView.setText(tab.getText());
+            mTextView.setTextSize(mTabTextSize);
+            mTextView.setTextColor(mTabTextColor);
             mIconView.setImageDrawable(tab.getIcon());
             unSelect();
-            /*mTextView.setTextAppearance(getContext(), mTabTextAppearance);
-            if (mTabTextColors != null) {
-                mTextView.setTextColor(mTabTextColors);
-            }
-            updateTextAndIcon(tab, mTextView, mIconView);*/
         }
 
         public void animateIn(float positionOffset) {
