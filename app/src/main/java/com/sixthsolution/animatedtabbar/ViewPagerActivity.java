@@ -8,7 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sixthsolution.tabbarflipper.TabBarFlipper;
+import com.sixthsolution.tabbarflipper.AnimatedTabLayout;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
@@ -17,22 +17,22 @@ public class ViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
 
-        TabBarFlipper tabBarFlipper = (TabBarFlipper) findViewById(R.id.tabs);
+        AnimatedTabLayout animatedTabLayout = (AnimatedTabLayout) findViewById(R.id.tabs);
 
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("ONE").setIcon(R.drawable.ic_room_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("TWO").setIcon(R.drawable.ic_backup_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("FOUR").setIcon(R.drawable.ic_shopping_cart_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("ONE").setIcon(R.drawable.ic_room_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("TWO").setIcon(R.drawable.ic_backup_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("THREE").setIcon(R.drawable.ic_brightness_2_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("FOUR").setIcon(R.drawable.ic_shopping_cart_24dp));
 
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));
 
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("five").setIcon(R.drawable.ic_room_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("six").setIcon(R.drawable.ic_backup_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("seven").setIcon(R.drawable.ic_brightness_2_24dp));
-        tabBarFlipper.addTab(tabBarFlipper.newTab().setText("eight").setIcon(R.drawable.ic_shopping_cart_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("nine").setIcon(R.drawable.ic_room_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("ten").setIcon(R.drawable.ic_backup_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("eleven").setIcon(R.drawable.ic_brightness_2_24dp));
+        animatedTabLayout.addTab(animatedTabLayout.newTab().setText("twelve").setIcon(R.drawable.ic_shopping_cart_24dp));
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
@@ -41,7 +41,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         viewPager.setAdapter(myPagerAdapter);
 
-        tabBarFlipper.setViewPager(viewPager);
+        animatedTabLayout.setViewPager(viewPager);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

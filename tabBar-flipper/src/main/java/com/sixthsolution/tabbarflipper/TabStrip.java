@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
  * @author : Pedramrn@gmail.com
  *         Created on: 2015-11-11
  */
+
+/**
+ * Container for tabs and responsible for drawing the indicator.
+ */
 class TabStrip extends LinearLayout {
 
     private static final int DEFAULT_INDICATOR_SIZE = 12;//dp
@@ -35,14 +39,14 @@ class TabStrip extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, float density) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabBarFlipper);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedTabLayout);
 
-        if (a.hasValue(R.styleable.TabBarFlipper_tab_IndicatorDrawable))
-            mDrawableIndicator = a.getDrawable(R.styleable.TabBarFlipper_tab_IndicatorDrawable);
+        if (a.hasValue(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable))
+            mDrawableIndicator = a.getDrawable(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable);
         else
             mDrawableIndicator = context.getResources().getDrawable(R.drawable.ic_account_circle_24dp);
 
-        int indicatorMaxHeight = a.getDimensionPixelSize(R.styleable.TabBarFlipper_tab_IndicatorSize, (int) (DEFAULT_INDICATOR_SIZE * density));
+        int indicatorMaxHeight = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_IndicatorSize, (int) (DEFAULT_INDICATOR_SIZE * density));
 
         a.recycle();
 
