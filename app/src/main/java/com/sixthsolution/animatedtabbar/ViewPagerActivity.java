@@ -41,7 +41,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         viewPager.setAdapter(myPagerAdapter);
 
-        tabBarFlipper.setUpWithViewPager(viewPager);
+        tabBarFlipper.setViewPager(viewPager);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

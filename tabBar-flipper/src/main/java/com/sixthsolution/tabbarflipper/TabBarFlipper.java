@@ -12,7 +12,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,13 @@ import java.util.ArrayList;
 /**
  * @author : Pedramrn@gmail.com
  *         Created on: 2015-11-09
+ *
+ *
+ *
+ * AnimatedTabLayout, Some of codes has taken from google support library,
+ * and SmartTabLayout from ogaclejapan.
+ *
+ *
  */
 public class TabBarFlipper extends HorizontalScrollView {
 
@@ -47,6 +53,7 @@ public class TabBarFlipper extends HorizontalScrollView {
     private int mTabPaddingBottom;
     private TabStrip mTabStrip;
     private Tab mSelectedTab;
+    private ViewPager mViewPager;
 
     public TabBarFlipper(Context context) {
         super(context);
@@ -93,10 +100,9 @@ public class TabBarFlipper extends HorizontalScrollView {
 
     }
 
-    public void setUpWithViewPager(ViewPager viewPager) {
+    public void setViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
         viewPager.addOnPageChangeListener(new TabBarFlipperOnPageChangeListener(this));
-//        viewPager.getAdapter();
-        //TODO: get the titles from adapter
     }
 
     public Tab newTab() {
@@ -212,6 +218,16 @@ public class TabBarFlipper extends HorizontalScrollView {
                     child.select();
                     mSelectedTab = mTabs.get(position);
                 } else child.unSelect();
+            }
+        }
+    }
+
+    private void unSelectTabViews() {
+        final int tabCount = mTabs.size();
+        for (int i = 0; i < tabCount; i++) {
+            final TabView child = getTabViewAt(i);
+            if (i != mSelectedTab.getPosition()) {
+                child.animateUnselect();
             }
         }
     }
@@ -342,13 +358,15 @@ public class TabBarFlipper extends HorizontalScrollView {
         }
     }
 
-    class TabView extends FrameLayout {
+    class TabView extends FrameLayout implements OnClickListener {
+        private final Tab mTab;
         private TextView mTextView;
         private ImageView mIconView;
 
 
         public TabView(Context context, Tab tab) {
             super(context);
+            mTab = tab;
 
             ViewCompat.setPaddingRelative(this, mTabPaddingStart, mTabPaddingTop, mTabPaddingEnd, mTabPaddingBottom);
             setMinimumWidth(mTabMinWidth);
@@ -377,9 +395,10 @@ public class TabBarFlipper extends HorizontalScrollView {
             mTextView.setTextColor(mTabTextColor);
             mIconView.setImageDrawable(tab.getIcon());
             unSelect();
+            setOnClickListener(this);
         }
 
-        public void animateIn(float positionOffset) {
+        public void transformSelect(float positionOffset) {
 
             float shrinkFactor = positionOffset / 2;
             mTextView.setScaleX(Math.abs(shrinkFactor - 1f));
@@ -394,7 +413,7 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         }
 
-        public void animateOut(float positionOffset) {
+        public void transformUnSelect(float positionOffset) {
 
             float shrinkFactor = positionOffset / 2;
             mIconView.setScaleX(Math.abs(shrinkFactor - 1f));
@@ -409,16 +428,34 @@ public class TabBarFlipper extends HorizontalScrollView {
 
         }
 
+        public void animateSelect() {
+
+            mTextView.animate().scaleX(1).scaleY(1).alpha(1).rotationY(0).setDuration(300).start();
+            mIconView.animate().scaleX(0).scaleY(0).alpha(0).rotationY(180).setDuration(300).start();
+
+        }
+
+        public void animateUnselect() {
+
+            mTextView.animate().scaleX(0).scaleY(0).alpha(0).rotationY(180).setDuration(300).start();
+            mIconView.animate().scaleX(1).scaleY(1).alpha(1).rotationY(0).setDuration(300).start();
+        }
+
         public void select() {
-            animateIn(0);
+            transformSelect(0);
             setSelected(true);
         }
 
         public void unSelect() {
-            animateOut(0);
+            transformUnSelect(0);
             setSelected(false);
         }
 
+        @Override
+        public void onClick(View v) {
+            mViewPager.setCurrentItem(mTab.getPosition());
+//            setSelectedTabView(mTab.getPosition());
+        }
     }
 
     public static class TabBarFlipperOnPageChangeListener implements ViewPager.OnPageChangeListener {
@@ -441,8 +478,8 @@ public class TabBarFlipper extends HorizontalScrollView {
             TabView selectedTab = tabBarFlipper.getTabViewAt(position);
             TabView selectingTab = tabBarFlipper.getTabViewAt(position + 1);
             if (selectingTab == null) return;
-            selectedTab.animateIn(positionOffset);
-            selectingTab.animateOut(positionOffset);
+            selectedTab.transformSelect(positionOffset);
+            selectingTab.transformUnSelect(positionOffset);
 
             if (0f < positionOffset && positionOffset < 1f) {
                 int current = Utils.getWidth(selectedTab) / 2 + Utils.getMarginEnd(selectedTab);
@@ -458,17 +495,23 @@ public class TabBarFlipper extends HorizontalScrollView {
         public void onPageSelected(int position) {
             TabBarFlipper tabBarFlipper = mTabBarFlipperRef.get();
             int tabCount = tabBarFlipper.mTabs.size() - 1;
-            if (position > tabCount) {
+            if (position > tabCount) {//if there are more page than tabs
                 tabBarFlipper.mTabStrip.onViewPagerPageChanged(tabCount, 0f);
                 tabBarFlipper.setSelectedTabView(tabCount);
                 return;
             }
             tabBarFlipper.setSelectedTabView(position);
+            tabBarFlipper.unSelectTabViews();
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
+            TabBarFlipper tabBarFlipper = mTabBarFlipperRef.get();
+            //Setting the viewpager current item programmatically causes tabs animate incompletely,
+            //so reset all tabs status
+            //TODO: Add animation to smooth the process
+//            if (state == ViewPager.SCROLL_STATE_IDLE)
+//                tabBarFlipper.unSelectTabViews();
         }
     }
 }
