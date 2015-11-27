@@ -12,6 +12,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -529,7 +530,7 @@ public class AnimatedTabLayout extends HorizontalScrollView {
             AnimatedTabLayout animatedTabLayout = mTabBarFlipperRef.get();
 
             //Only update offset if the (position + offset) is not bigger than tab count.
-            if (position > animatedTabLayout.mTabs.size() - 2) return;
+            if (position >= animatedTabLayout.mTabs.size() - 1 && positionOffset > 0.0f) return;
 
             animatedTabLayout.mTabStrip.onViewPagerPageChanged(position, positionOffset);
             TabView selectedTab = animatedTabLayout.getTabViewAt(position);
@@ -552,7 +553,7 @@ public class AnimatedTabLayout extends HorizontalScrollView {
         public void onPageSelected(int position) {
             AnimatedTabLayout animatedTabLayout = mTabBarFlipperRef.get();
             int tabCount = animatedTabLayout.mTabs.size() - 1;
-            //if there are more page than tabs
+            //if there are more page than tabs select the last tab
             if (position > tabCount) {
                 animatedTabLayout.mTabStrip.onViewPagerPageChanged(tabCount, 0f);
                 animatedTabLayout.setSelectedTabView(tabCount);
