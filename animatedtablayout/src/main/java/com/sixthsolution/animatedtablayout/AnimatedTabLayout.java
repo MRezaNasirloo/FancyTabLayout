@@ -1,4 +1,4 @@
-package com.sixthsolution.tabbarflipper;
+package com.sixthsolution.animatedtablayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.internal.widget.TintManager;
@@ -20,6 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.sixthsolution.tabbarflipper.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

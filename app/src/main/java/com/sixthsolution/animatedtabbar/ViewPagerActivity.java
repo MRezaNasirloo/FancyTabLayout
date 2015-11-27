@@ -8,7 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sixthsolution.tabbarflipper.AnimatedTabLayout;
+import com.sixthsolution.animatedtablayout.AnimatedTabLayout;
 
 public class ViewPagerActivity extends AppCompatActivity {
 

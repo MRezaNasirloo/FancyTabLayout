@@ -12,7 +12,7 @@
         >
 
 
-        <com.sixthsolution.tabbarflipper.AnimatedTabLayout
+        <com.sixthsolution.animatedtablayout.AnimatedTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

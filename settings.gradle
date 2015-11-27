@@ -1,1 +1,2 @@
-include ':app', ':tabBar-flipper'
+include ':app', ':animated-tablayout'
+project(':animated-tablayout').projectDir = new File('animatedtablayout')

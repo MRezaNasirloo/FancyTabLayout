@@ -1,4 +1,4 @@
-package com.sixthsolution.tabbarflipper;
+package com.sixthsolution.animatedtablayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.sixthsolution.tabbarflipper.R;
 
 /**
  * @author : Pedramrn@gmail.com
