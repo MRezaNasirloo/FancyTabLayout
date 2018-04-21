@@ -17,6 +17,10 @@ android {
     }
 }
 
+android.libraryVariants.all {
+    it.generateBuildConfig.enabled = false
+}
+
 dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:27.1.1'
