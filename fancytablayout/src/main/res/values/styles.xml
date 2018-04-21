@@ -3,7 +3,7 @@
     <style name="TextAppearance.Tab" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/tab_text_size</item>
         <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
