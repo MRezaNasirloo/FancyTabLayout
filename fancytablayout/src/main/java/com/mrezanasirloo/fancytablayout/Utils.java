@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2015 ogaclejapan
  * Copyright (C) 2013 The Android Open Source Project
  *

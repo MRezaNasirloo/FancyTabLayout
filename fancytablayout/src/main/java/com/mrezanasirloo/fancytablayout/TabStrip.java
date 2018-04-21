@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mrezanasirloo.fancytablayout.R;
-
 /**
  * @author : M.Reza.Nasirloo@gmail.com
  *         Created on: 2015-11-11

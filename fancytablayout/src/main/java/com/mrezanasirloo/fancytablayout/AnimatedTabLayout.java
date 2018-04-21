@@ -20,8 +20,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mrezanasirloo.fancytablayout.R;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
