@@ -21,7 +21,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <com.mrezanasirloo.fancytablayout.AnimatedTabLayout
+        <com.mrezanasirloo.fancytablayout.FancyTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

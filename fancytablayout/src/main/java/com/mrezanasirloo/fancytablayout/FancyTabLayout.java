@@ -48,7 +48,7 @@ import java.util.ArrayList;
  * And setting up viewpager with {@link #setViewPager(ViewPager)} for liking the viewpager with
  * AnimatedTabLayout
  */
-public class AnimatedTabLayout extends HorizontalScrollView {
+public class FancyTabLayout extends HorizontalScrollView {
 
     private static final int DEFAULT_PADDING = 7;//dp
     private static final int DEFAULT_MIN_WIDTH = 48;//dp
@@ -67,15 +67,15 @@ public class AnimatedTabLayout extends HorizontalScrollView {
     private Tab mSelectedTab;
     private ViewPager mViewPager;
 
-    public AnimatedTabLayout(Context context) {
+    public FancyTabLayout(Context context) {
         super(context);
     }
 
-    public AnimatedTabLayout(Context context, AttributeSet attrs) {
+    public FancyTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AnimatedTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FancyTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         //Disables scrollbar
@@ -89,24 +89,24 @@ public class AnimatedTabLayout extends HorizontalScrollView {
 
         float density = getResources().getDisplayMetrics().density;
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedTabLayout,
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FancyTabLayout,
                 defStyleAttr, 0);
 
 
         mTabPaddingStart = mTabPaddingTop = mTabPaddingEnd = mTabPaddingBottom =
-                a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_Padding, ((int) (DEFAULT_PADDING * density)));
-        mTabPaddingStart = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_PaddingStart, mTabPaddingStart);
-        mTabPaddingTop = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_PaddingTop, mTabPaddingTop);
-        mTabPaddingEnd = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_PaddingEnd, mTabPaddingEnd);
-        mTabPaddingBottom = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_PaddingBottom, mTabPaddingBottom);
+                a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_Padding, ((int) (DEFAULT_PADDING * density)));
+        mTabPaddingStart = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_PaddingStart, mTabPaddingStart);
+        mTabPaddingTop = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_PaddingTop, mTabPaddingTop);
+        mTabPaddingEnd = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_PaddingEnd, mTabPaddingEnd);
+        mTabPaddingBottom = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_PaddingBottom, mTabPaddingBottom);
 
-        mTabMinWidth = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_MinWidth, ((int) (DEFAULT_MIN_WIDTH * density)));
+        mTabMinWidth = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_MinWidth, ((int) (DEFAULT_MIN_WIDTH * density)));
 
-        mTabTextSize = (int) a.getDimension(R.styleable.AnimatedTabLayout_tab_TextSize, INVALID_TEXT_SIZE);
+        mTabTextSize = (int) a.getDimension(R.styleable.FancyTabLayout_tab_TextSize, INVALID_TEXT_SIZE);
 
-        mTabTextColor = a.getColor(R.styleable.AnimatedTabLayout_tab_TextColor, Color.WHITE);
+        mTabTextColor = a.getColor(R.styleable.FancyTabLayout_tab_TextColor, Color.WHITE);
 
-        mTabTextAppearance = a.getResourceId(R.styleable.AnimatedTabLayout_tab_TextAppearance, -1);
+        mTabTextAppearance = a.getResourceId(R.styleable.FancyTabLayout_tab_TextAppearance, -1);
 
         a.recycle();
 
@@ -341,12 +341,12 @@ public class AnimatedTabLayout extends HorizontalScrollView {
     public static class Tab {
 
         public static final int INVALID_POSITION = -1;
-        private final AnimatedTabLayout mParent;
+        private final FancyTabLayout mParent;
         private CharSequence mTabText;
         private Drawable mTabIcon;
         private int mPosition = INVALID_POSITION;
 
-        public Tab(AnimatedTabLayout parent) {
+        public Tab(FancyTabLayout parent) {
             mParent = parent;
         }
 
@@ -515,16 +515,16 @@ public class AnimatedTabLayout extends HorizontalScrollView {
 
     public static class TabBarFlipperOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-        private final WeakReference<AnimatedTabLayout> mTabBarFlipperRef;
+        private final WeakReference<FancyTabLayout> mTabBarFlipperRef;
 
-        public TabBarFlipperOnPageChangeListener(AnimatedTabLayout animatedTabLayout) {
+        public TabBarFlipperOnPageChangeListener(FancyTabLayout animatedTabLayout) {
             mTabBarFlipperRef = new WeakReference<>(animatedTabLayout);
         }
 
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            AnimatedTabLayout animatedTabLayout = mTabBarFlipperRef.get();
+            FancyTabLayout animatedTabLayout = mTabBarFlipperRef.get();
 
             //Only update offset if the (position + offset) is not bigger than tab count.
             if (position >= animatedTabLayout.mTabs.size() - 1 && positionOffset > 0.0f) return;
@@ -548,7 +548,7 @@ public class AnimatedTabLayout extends HorizontalScrollView {
 
         @Override
         public void onPageSelected(int position) {
-            AnimatedTabLayout animatedTabLayout = mTabBarFlipperRef.get();
+            FancyTabLayout animatedTabLayout = mTabBarFlipperRef.get();
             int tabCount = animatedTabLayout.mTabs.size() - 1;
             //if there are more page than tabs select the last tab
             if (position > tabCount) {

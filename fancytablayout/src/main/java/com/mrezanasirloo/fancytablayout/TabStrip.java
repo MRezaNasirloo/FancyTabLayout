@@ -38,14 +38,14 @@ class TabStrip extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, float density) {
-        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedTabLayout);
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FancyTabLayout);
 
-        if (a.hasValue(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable))
-            mDrawableIndicator = a.getDrawable(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable);
+        if (a.hasValue(R.styleable.FancyTabLayout_tab_IndicatorDrawable))
+            mDrawableIndicator = a.getDrawable(R.styleable.FancyTabLayout_tab_IndicatorDrawable);
         else
             mDrawableIndicator = context.getResources().getDrawable(R.drawable.ic_arrow_up_24dp);
 
-        int indicatorMaxHeight = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_IndicatorSize, (int) (DEFAULT_INDICATOR_SIZE * density));
+        int indicatorMaxHeight = a.getDimensionPixelSize(R.styleable.FancyTabLayout_tab_IndicatorSize, (int) (DEFAULT_INDICATOR_SIZE * density));
 
         a.recycle();
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="AnimatedTabLayout">
+    <declare-styleable name="FancyTabLayout">
         <attr name="tab_IndicatorSize" format="dimension"/>
         <attr name="tab_MinWidth" format="dimension"/>
         <attr name="tab_TextAppearance" format="reference"/>

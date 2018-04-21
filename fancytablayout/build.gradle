@@ -34,7 +34,7 @@ publish {
     bintrayUser = 'mrezanasirloo'
     groupId = 'com.mrezanasirloo'
     artifactId = 'fancytablayout'
-    publishVersion = '0.9.1'
+    publishVersion = '0.9.2'
     desc = 'A fancy tab layout for your view pagers'
     website = 'https://github.com/MRezaNasirloo/FancyTabLayout'
 }
