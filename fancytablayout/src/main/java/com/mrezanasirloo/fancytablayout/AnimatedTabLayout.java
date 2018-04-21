@@ -8,9 +8,9 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -106,7 +106,7 @@ public class AnimatedTabLayout extends HorizontalScrollView {
 
         mTabTextColor = a.getColor(R.styleable.AnimatedTabLayout_tab_TextColor, Color.WHITE);
 
-        mTabTextAppearance = a.getResourceId(R.styleable.AnimatedTabLayout_tab_TextAppearance, R.style.TextAppearance_Tab);
+        mTabTextAppearance = a.getResourceId(R.styleable.AnimatedTabLayout_tab_TextAppearance, -1);
 
         a.recycle();
 
@@ -389,7 +389,7 @@ public class AnimatedTabLayout extends HorizontalScrollView {
          */
         @NonNull
         public Tab setIcon(@DrawableRes int resId) {
-            return setIcon(AppCompatResources.getDrawable(mParent.getContext(), resId));
+            return setIcon(ResourcesCompat.getDrawable(mParent.getContext().getResources(), resId, null));
         }
 
         /**
@@ -436,11 +436,13 @@ public class AnimatedTabLayout extends HorizontalScrollView {
                         .inflate(R.layout.flipper_tab_text, this, false);
                 addView(textView);
                 mTextView = textView;
-                if (Build.VERSION.SDK_INT < 23)
-                    textView.setTextAppearance(getContext(), mTabTextAppearance);
-                else
-                    textView.setTextAppearance(mTabTextAppearance);
-
+                if (mTabTextAppearance != -1) {
+                    if (Build.VERSION.SDK_INT < 23) {
+                        textView.setTextAppearance(getContext(), mTabTextAppearance);
+                    } else {
+                        textView.setTextAppearance(mTabTextAppearance);
+                    }
+                }
             }
 
             mTextView.setText(tab.getText());
