@@ -22,20 +22,14 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="TextAppearance.Tab" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textSize">26sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">@font/roboto_light</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mrezanasirloo.fancytablayout.sample.ViewPagerActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText"/>
+</menu>

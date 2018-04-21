@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ MIT License
   ~
@@ -23,19 +24,18 @@
   -->
 
 <resources>
+    <declare-styleable name="FancyTabLayout">
+        <attr name="tab_IndicatorSize" format="dimension"/>
+        <attr name="tab_MinWidth" format="dimension"/>
+        <attr name="tab_TextAppearance" format="reference"/>
+        <attr name="tab_IndicatorDrawable" format="reference"/>
+        <attr name="tab_TextColor" format="color"/>
+        <attr name="tab_TextSize" format="dimension"/>
+        <attr name="tab_PaddingStart" format="dimension"/>
+        <attr name="tab_PaddingTop" format="dimension"/>
+        <attr name="tab_PaddingEnd" format="dimension"/>
+        <attr name="tab_PaddingBottom" format="dimension"/>
+        <attr name="tab_Padding" format="dimension"/>
+    </declare-styleable>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="TextAppearance.Tab" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textSize">26sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">@font/roboto_light</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 </resources>
