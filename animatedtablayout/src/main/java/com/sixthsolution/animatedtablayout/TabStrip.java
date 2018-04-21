@@ -11,11 +11,9 @@ import android.widget.LinearLayout;
 import com.sixthsolution.tabbarflipper.R;
 
 /**
- * @author : Pedramrn@gmail.com
+ * @author : M.Reza.Nasirloo@gmail.com
  *         Created on: 2015-11-11
- */
-
-/**
+ *
  * Container for tabs and responsible for drawing the indicator.
  */
 class TabStrip extends LinearLayout {

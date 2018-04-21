@@ -26,15 +26,13 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
- * @author : Pedramrn@gmail.com
+ * @author : M.Reza.Nasirloo@gmail.com
  *         Created on: 2015-11-09
  *         <p>
  *         AnimatedTabLayout, Some of the codes has taken from google support library,
  *         and SmartTabLayout from ogaclejapan.
- */
-
-
-/**
+ *
+ *
  * TabLayout provides a horizontal layout to display tabs.
  *
  * <p>Population of the tabs to display is
