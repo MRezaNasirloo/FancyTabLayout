@@ -1,4 +1,4 @@
-package com.sixthsolution.animatedtablayout;
+package com.mrezanasirloo.fancytablayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.sixthsolution.tabbarflipper.R;
+import com.mrezanasirloo.fancytablayout.R;
 
 /**
  * @author : M.Reza.Nasirloo@gmail.com

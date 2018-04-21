@@ -22,5 +22,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-    implementation project(':animated-tablayout')
+    implementation project(':fancytablayout')
 }

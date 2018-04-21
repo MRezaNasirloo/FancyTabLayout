@@ -1,4 +1,4 @@
-package com.sixthsolution.animatedtabbar;
+package com.mrezanasirloo.fancytablayout.sample;
 
 
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.sixthsolution.animatedtablayout;
+package com.mrezanasirloo.fancytablayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -20,7 +20,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sixthsolution.tabbarflipper.R;
+import com.mrezanasirloo.fancytablayout.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

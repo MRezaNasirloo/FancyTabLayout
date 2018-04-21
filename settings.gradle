@@ -1,2 +1,2 @@
-include ':app', ':animated-tablayout'
-project(':animated-tablayout').projectDir = new File('animatedtablayout')
+include ':app', ':fancytablayout'
+rootProject.name = "FancyTabLayout"
