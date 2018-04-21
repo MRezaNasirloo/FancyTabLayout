@@ -59,14 +59,8 @@ public class ViewPagerActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return BlankFragment.newInstance(1, "Page # 1");
-                case 1:
-                    return BlankFragment.newInstance(2, "Page # 2");
-                case 2:
-                    return BlankFragment.newInstance(3, "Page # 3");
                 default:
-                    return BlankFragment.newInstance(4, "Page # 3");
+                    return BlankFragment.newInstance(position + 1, "Page # " + position + 1);
             }
         }
 
