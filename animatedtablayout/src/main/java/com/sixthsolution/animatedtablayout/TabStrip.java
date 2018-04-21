@@ -1,5 +1,6 @@
 package com.sixthsolution.animatedtablayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -39,12 +40,12 @@ class TabStrip extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, float density) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedTabLayout);
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedTabLayout);
 
         if (a.hasValue(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable))
             mDrawableIndicator = a.getDrawable(R.styleable.AnimatedTabLayout_tab_IndicatorDrawable);
         else
-            mDrawableIndicator = context.getResources().getDrawable(R.drawable.ic_account_circle_24dp);
+            mDrawableIndicator = context.getResources().getDrawable(R.drawable.ic_arrow_up_24dp);
 
         int indicatorMaxHeight = a.getDimensionPixelSize(R.styleable.AnimatedTabLayout_tab_IndicatorSize, (int) (DEFAULT_INDICATOR_SIZE * density));
 

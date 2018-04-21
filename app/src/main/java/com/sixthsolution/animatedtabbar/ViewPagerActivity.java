@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.sixthsolution.animatedtablayout.AnimatedTabLayout;
 
@@ -17,7 +19,10 @@ public class ViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
 
-        AnimatedTabLayout animatedTabLayout = (AnimatedTabLayout) findViewById(R.id.tabs);
+        setSupportActionBar(
+                (Toolbar) findViewById(R.id.toolbar));
+
+        AnimatedTabLayout animatedTabLayout =  findViewById(R.id.tabs);
 
         animatedTabLayout.addTab(animatedTabLayout.newTab().setText("ONE").setIcon(R.drawable.ic_room_24dp));
         animatedTabLayout.addTab(animatedTabLayout.newTab().setText("TWO").setIcon(R.drawable.ic_backup_24dp));
@@ -35,7 +40,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         animatedTabLayout.addTab(animatedTabLayout.newTab().setText("twelve").setIcon(R.drawable.ic_shopping_cart_24dp));
 
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
+        ViewPager viewPager = findViewById(R.id.vp);
 
         PagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 

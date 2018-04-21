@@ -1,29 +1,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:text="Page:"
-        android:layout_gravity="center"
-        android:id="@+id/textView2"
         android:layout_above="@+id/page_number"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:textSize="32sp"
+        tools:text="Page:"
         />
 
     <TextView
+        android:id="@+id/page_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="68sp"
-        android:text="6"
-        android:gravity="bottom"
-        android:layout_gravity="center_horizontal|top"
-        android:id="@+id/page_number"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal|top"
+        android:gravity="bottom"
+        android:textSize="68sp"
+        tools:text="6"
         />
 
 
