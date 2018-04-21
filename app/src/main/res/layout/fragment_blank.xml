@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +12,10 @@
         android:layout_above="@+id/page_number"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:text="Page:"
         android:textSize="32sp"
-        tools:text="Page:"
+        app:fontFamily="@font/roboto_light"
+        tools:ignore="HardcodedText"
         />
 
     <TextView
@@ -24,8 +27,7 @@
         android:layout_gravity="center_horizontal|top"
         android:gravity="bottom"
         android:textSize="68sp"
+        app:fontFamily="@font/roboto_light"
         tools:text="6"
         />
-
-
 </RelativeLayout>
