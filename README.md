@@ -25,7 +25,7 @@ implementation 'com.mrezanasirloo:fancytablayout:0.9.2'
 ```
 
 ### Note:
-The code base is pretty much old and is not clean, from 3 years age, you might noticed it by the hungarian notaion that used in the code. I've just updated the dependecies and push it to share this. This is just a prove of concept.
+**The code base is pretty much old and is not clean, it's from 3 years ago, you might noticed it by the hungarian notaion that used in the code. I've just updated the dependecies and push it to share this. This is just a prove of concept.**
 
 ## License
 ```
